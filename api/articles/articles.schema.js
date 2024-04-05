@@ -1,12 +1,26 @@
 const { Schema, model } = require("mongoose");
 
 const articleSchema = Schema({
-  title: String,
-  content: String,
-  user: {
-    type: Schema.Types.ObjectId,
-    ref: "User",
-  },
+    title: {
+        type: String,
+        required :true,
+    },
+    content: {
+        type: String,
+        required :true,
+    },
+    status: {
+        type: String,
+        enum: {
+          values : ["draft", "published"],
+          message : '{VALUE} inconnue',
+        },
+        default: "draft",
+    },
+    user: {
+        type: Schema.Types.ObjectId,
+        ref: "User",
+    },
 });
 
 let Article;
