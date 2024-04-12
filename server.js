@@ -8,6 +8,7 @@ const usersController = require("./api/users/users.controller");
 const artilcesRouter = require("./api/articles/articles.router");
 const articleController = require("./api/articles/articles.controller");
 const authMiddleware = require("./middlewares/auth");
+const isAdminMiddleware = require("./middlewares/isAdmin");
 require("./api/articles/articles.schema"); // temporaire
 const app = express();
 
@@ -32,7 +33,7 @@ app.use(express.json());
 
 app.use("/api/users", authMiddleware, userRouter);
 app.post("/login", usersController.login);
-app.use("/api/articles", artilcesRouter );
+app.use("/api/articles",authMiddleware, artilcesRouter);
 
 app.use("/", express.static("public"));
 
