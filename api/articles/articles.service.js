@@ -13,7 +13,9 @@ class ArticleService {
   delete(id) {
     return Article.deleteOne({ _id: id });
   }
-
+  async getAllFromUser(userId) {
+    return await Article.find({ user: userId }).populate('user', '-password');
+  }
 }
 
 module.exports = new ArticleService();
